@@ -1,0 +1,162 @@
+---
+
+- name: Install python and deps for ansible modules
+  raw: dnf install -y python2 python2-dnf libselinux-python
+  tags:
+    - necessary_packages
+
+- name: Installs necessary packages for fedora
+  package: name={{ item }} state=latest
+  with_items:
+    - git
+    - gcc
+    - file
+    - libevent-devel
+    - python-devel
+    - sqlite-devel
+    - zeromq-devel
+    - libffi-devel
+    - openssl-devel
+    - systemd-python
+    - redis
+    - couchdb
+    - python2-systemd
+    - make
+    - python
+    - python-pip
+    - redhat-rpm-config
+    - yum
+    - nginx
+  tags:
+    - necessary_packages
+
+- name: Set http for nginx
+  shell: setsebool -P httpd_can_network_connect 1
+
+- name: Upgrade global pip
+  raw: pip install --upgrade pip
+
+- name: Install global pip
+  pip: name={{ item }}
+  with_items:
+    - virtualenv
+    - setuptools
+
+- name: Create dir for code
+  file: path={{ path_to_code }} state=directory mode=0755 recurse=yes
+
+- name: Check if virtualenv already exists
+  stat: path={{ path_to_virtualenv }}
+  register: venv_dir
+
+- name: Create virtualenv
+  shell: virtualenv {{ path_to_virtualenv }}
+  when: venv_dir.stat.isdir is not defined
+
+- name: Create virtialenv and install dependecy
+  pip: name={{ item }} virtualenv={{ path_to_virtualenv }} virtualenv_site_packages=yes
+  with_items:
+    - virtualenv
+    - setuptools==7.0
+    - circus
+    - circus_web
+    - tomako
+    - TornadIO2
+    - tornado
+    - pyzmq
+    - six==1.9.0
+    - anyjson
+    - MarkupSafe
+    - Mako
+    - psutil
+    - iowait
+    - simplejson
+    - backports.ssl_match_hostname
+    - certifi
+    - nose
+    - retrying
+    - restkit
+    - munch
+    - iso8601
+    - gevent
+    - requests_mock
+    - mock
+    - bottle
+    - python_coveralls
+    - WebTest
+    - PyYAML
+    - tzlocal
+    - rfc6266
+    - requests
+    - pyramid_exclog
+    - pycrypto
+    - pbkdf2
+    - libnacl
+    - jsonpatch
+    - couchdb_schematics
+    - cornice
+    - chaussette
+    - socketpool
+    - http_parser
+    - greenlet
+    - sh
+    - coverage
+    - beautifulsoup4
+    - waitress
+    - WebOb
+    - pytz
+    - LEPL
+    - pyramid
+    - jsonpointer
+    - pytest
+    - schematics
+    - CouchDB
+    - PasteDeploy
+    - translationstring
+    - venusian
+    - zope.deprecation
+    - zope.interface
+    - repoze.lru
+    - py
+    - git+https://github.com/openprocurement/server_cookie_middleware.git#egg=server_cookie_middleware
+    - git+https://github.com/openprocurement/barbecue.git#egg=barbecue
+    - git+https://github.com/quintagroup/request_id_middleware.git#egg=request_id_middleware
+  tags:
+    - pip_packages
+  ignore_errors: yes
+
+- name: Create dir for logs
+  file: path={{ path_to_logs }} state=directory mode=0755 recurse=yes
+
+- name: Clone repository
+  git: repo={{ code_repository }} dest={{ path_to_code }} version={{ code_version }} update=no
+  tags: clone
+
+- name: Build repo
+  shell: "{{ path_to_virtualenv }}/bin/python setup.py build chdir={{ path_to_code }}"
+
+- name: Load buildout
+  shell: "{{ path_to_virtualenv }}/bin/python bootstrap.py chdir={{ path_to_code }}"
+
+- name: Build repo
+  shell: "{{ path_to_virtualenv }}/bin/python bin/buildout -N chdir={{ path_to_code }}"
+
+- name: Copy auth.ini
+  template: src=auth.ini.j2 dest={{ path_to_auth }}/auth.ini owner=root group=root mode=0655
+  tags: templates
+  register: copy_templates
+
+- name: Copy openprocurement.integrations.edr.ini
+  template: src=openprocurement.integrations.edr.ini.j2 dest={{ path_to_auth }}/openprocurement.integrations.edr.ini owner=root group=root mode=0655
+  tags: templates
+  register: copy_templates
+
+- name: Copy circus ini
+  template: src=circus.ini.j2 dest={{ path_to_config }}/circus.ini owner=root group=root mode=0655
+  tags: templates
+  register: copy_templates
+
+- name: Run circus ini
+  shell: "{{ path_to_virtualenv }}/bin/circusd --daemon {{ path_to_config }}/circus.ini"
+  tags: run_circus
+
