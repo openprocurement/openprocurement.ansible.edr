@@ -24,7 +24,7 @@ edr_timeout: 6
 
 # Proxy setting
 proxy_host: 0.0.0.0
-proxy_port: 6547
+proxy_port: 8008
 
 # Path to config
 path_to_config: /home/{{ deploy_user }}

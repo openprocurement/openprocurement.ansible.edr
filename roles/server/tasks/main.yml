@@ -30,9 +30,6 @@
   tags:
     - necessary_packages
 
-- name: Set http for nginx
-  shell: setsebool -P httpd_can_network_connect 1
-
 - name: Upgrade global pip
   raw: pip install --upgrade pip
 
