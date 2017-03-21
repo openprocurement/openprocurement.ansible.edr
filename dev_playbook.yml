@@ -6,7 +6,7 @@
       role: server
     -
       role: geerlingguy.nginx
-      nginx_user: "root"
+      nginx_user: "nginx_user"
       nginx_vhosts_filename: "edr_proxy.conf"
       nginx_keepalive_timeout: "65"
       nginx_keepalive_requests: "100"
