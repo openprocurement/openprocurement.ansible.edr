@@ -1,7 +1,7 @@
 ---
 
 # Repo path
-code_repository: https://github.com/ITVaan/openprocurement.integrations.edr.git
+code_repository: https://github.com/openprocurement/openprocurement.edr.buildout.git
 
 # Repo branch
 code_version: master
@@ -32,6 +32,4 @@ path_to_config: /home/{{ deploy_user }}
 # Path to ini
 path_to_auth: "{{ path_to_config }}"
 
-# Path to logs files
-path_to_logs: /home/{{ deploy_user }}/logs
 
