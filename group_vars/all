@@ -1,2 +1,2 @@
 
-deploy_user: root
+deploy_user: proxy_user
