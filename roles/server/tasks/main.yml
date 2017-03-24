@@ -23,21 +23,11 @@
     - python2-systemd
     - make
     - python
-    - python-pip
     - redhat-rpm-config
     - yum
     - nginx
   tags:
     - necessary_packages
-
-- name: Upgrade global pip
-  raw: pip install --upgrade pip
-
-- name: Install global pip
-  pip: name={{ item }}
-  with_items:
-    - virtualenv
-    - setuptools
 
 - name: Create dir for code
   file: path={{ path_to_code }} state=directory mode=0755 recurse=yes
