@@ -14,7 +14,8 @@
         listen: "80 default_server"
         server_name: "_"
         extra_parameters: |
-          location / {
+          location /1.0 {
+            rewrite /1.0(.*) $1  break;
             proxy_pass         http://{{ proxy_host }}:{{ proxy_port }};
             proxy_redirect     off;
             proxy_buffering    off;
