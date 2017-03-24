@@ -54,10 +54,20 @@
   template: src=auth.ini.j2 dest={{ path_to_code }}/auth.ini
   register: copy_buildout_config
 
+- name: Load buildout
+  shell: "python bootstrap.py chdir={{ path_to_code }}"
+
 - name: Build repo
   shell: "python bin/buildout -N chdir={{ path_to_code }}"
+
+- name: Try reload webapp
+  shell: "{{ path_to_code }}/bin/circusctl reload webapp"
+  tags: reload_circus
+  ignore_errors: yes
+  register: reload_circus
 
 - name: Run circus ini
   shell: "{{ path_to_code }}/bin/circusd --daemon"
   tags: run_circus
+  when: reload_circus|failed
 
