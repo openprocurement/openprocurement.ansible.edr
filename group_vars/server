@@ -7,11 +7,7 @@ code_repository: https://github.com/openprocurement/openprocurement.edr.buildout
 code_version: master
 
 # Path to work directory
-path_to_work: /home/{{ deploy_user }}
-
-# Virtualenv configs
-virtualenv_name: venv
-path_to_virtualenv: "/home/{{ deploy_user }}/{{ virtualenv_name }}"
+path_to_work: /home/{{ build_user }}
 
 # Path to code
 path_to_code: "{{ path_to_work }}/edr_integrations"

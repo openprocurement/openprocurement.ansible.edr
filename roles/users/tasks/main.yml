@@ -1,0 +1,7 @@
+---
+
+- name: Add group
+  group: name={{ build_group }} state=present
+
+- name: Add build user
+  user: name={{ build_user }} uid=1040 group={{ build_group }} home=/home/{{ build_user }}

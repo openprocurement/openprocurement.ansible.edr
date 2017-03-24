@@ -3,6 +3,8 @@
 - hosts: server
   roles:
     -
+      role: users
+    -
       role: server
     -
       role: geerlingguy.nginx

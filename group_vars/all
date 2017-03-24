@@ -1,2 +1,7 @@
 
+# Remote user
 deploy_user: proxy_user
+
+# User need for building proxy
+build_user: edr_integration
+build_group: edr_group

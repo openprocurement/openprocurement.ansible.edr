@@ -29,31 +29,47 @@
 
 - name: Create dir for code
   file: path={{ path_to_code }} state=directory mode=0755 recurse=yes
+  become: true
+  become_user: "{{ build_user }}"
 
 - name: Clone repository
   git: repo={{ code_repository }} dest={{ path_to_code }} version={{ code_version }} update=no
   tags: clone
+  become: true
+  become_user: "{{ build_user }}"
 
 - name: Copy api.cfg
   template: src=api.cfg.j2 dest={{ path_to_code }}/api.cfg
+  become: true
+  become_user: "{{ build_user }}"
 
 - name: Copy auth.ini
   template: src=auth.ini.j2 dest={{ path_to_code }}/auth.ini
+  become: true
+  become_user: "{{ build_user }}"
 
 - name: Load buildout
   shell: "python bootstrap.py -c api.cfg chdir={{ path_to_code }}"
+  become: true
+  become_user: "{{ build_user }}"
 
 - name: Build repo
   shell: "bin/buildout -c api.cfg chdir={{ path_to_code }}"
+  become: true
+  become_user: "{{ build_user }}"
 
 - name: Try reload webapp
   shell: "bin/circusctl reload webapp chdir={{ path_to_code }}"
   tags: reload_circus
   ignore_errors: yes
   register: reload_circus
+  become: true
+  become_user: "{{ build_user }}"
 
 - name: Run circus ini
   shell: "bin/circusd --daemon chdir={{ path_to_code }}"
   tags: run_circus
   when: reload_circus|failed
+  become: true
+  become_user: "{{ build_user }}"
 
