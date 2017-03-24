@@ -13,13 +13,10 @@
     - file
     - libevent-devel
     - python-devel
-    - sqlite-devel
     - zeromq-devel
     - libffi-devel
     - openssl-devel
     - systemd-python
-    - redis
-    - couchdb
     - python2-systemd
     - make
     - python
@@ -28,6 +25,7 @@
     - nginx
   tags:
     - necessary_packages
+  become: true
 
 - name: Create dir for code
   file: path={{ path_to_code }} state=directory mode=0755 recurse=yes
@@ -36,28 +34,26 @@
   git: repo={{ code_repository }} dest={{ path_to_code }} version={{ code_version }} update=no
   tags: clone
 
-- name: Copy buildout
-  template: src=buildout.cfg.j2 dest={{ path_to_code }}/buildout.cfg
-  register: copy_buildout_config
+- name: Copy api.cfg
+  template: src=api.cfg.j2 dest={{ path_to_code }}/api.cfg
 
 - name: Copy auth.ini
   template: src=auth.ini.j2 dest={{ path_to_code }}/auth.ini
-  register: copy_buildout_config
 
 - name: Load buildout
-  shell: "python bootstrap.py chdir={{ path_to_code }}"
+  shell: "python bootstrap.py -c api.cfg chdir={{ path_to_code }}"
 
 - name: Build repo
-  shell: "python bin/buildout -N chdir={{ path_to_code }}"
+  shell: "bin/buildout -c api.cfg chdir={{ path_to_code }}"
 
 - name: Try reload webapp
-  shell: "{{ path_to_code }}/bin/circusctl reload webapp"
+  shell: "bin/circusctl reload webapp chdir={{ path_to_code }}"
   tags: reload_circus
   ignore_errors: yes
   register: reload_circus
 
 - name: Run circus ini
-  shell: "{{ path_to_code }}/bin/circusd --daemon"
+  shell: "bin/circusd --daemon chdir={{ path_to_code }}"
   tags: run_circus
   when: reload_circus|failed
 
