@@ -4,6 +4,7 @@
   raw: dnf install -y python2 python2-dnf libselinux-python
   tags:
     - necessary_packages
+  become: true
 
 - name: Installs necessary packages for fedora
   package: name={{ item }} state=latest

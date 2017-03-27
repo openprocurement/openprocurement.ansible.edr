@@ -20,6 +20,13 @@ For build run, and after 5-10 minutes yo will have built project on ypu hosts
 $ ansible-playbook -i hosts dev_playbook.yml
 ```
 
+If your user need password then run
+
+```sh
+$ ansible-playbook -i hosts dev_playbook.yml --ask-sudo-pass
+```
+
+
 ### Server dependency
 
   - python2.7
