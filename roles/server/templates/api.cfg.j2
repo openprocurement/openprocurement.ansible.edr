@@ -1,0 +1,13 @@
+[buildout]
+extends = production.cfg
+
+[circus.ini]
+web_port = {{ proxy_port }}
+web_host = {{ proxy_host }}
+
+[openprocurement.integrations.edr.ini]
+edr_api_host = {{ edr_api_host }}
+edr_api_token = {{ edr_api_token }}
+edr_api_port = {{ edr_api_port }}
+edr_timeout = {{ edr_timeout }}
+
