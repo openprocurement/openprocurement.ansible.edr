@@ -11,6 +11,13 @@ $ ansible-galaxy install geerlingguy.nginx
 
 First add list with ip servers to *hosts* on which you want build this project
 
+### Need token from EDRAPI
+
+Generate on `https://zqedr-www.nais.gov.ua/en/`
+
+Also IP of your server must be in whitelist for EDR API.
+
+Set token `edr_api_token` in group_vars/server
 
 ### Build
 
