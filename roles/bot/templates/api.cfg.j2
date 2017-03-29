@@ -1,0 +1,31 @@
+[buildout]
+extends =
+    profiles/production.cfg
+
+[circus.ini]
+contracting_data_bridge =
+competitive_dialogue_data_bridge =
+
+
+[bot_identification_bridge.yaml]
+tenders_api_server = {{ tenders_api_server }}
+public_tenders_api_server = {{ public_tenders_api_server }}
+api_token = {{ api_token }}
+edr_api_server = {{ edr_api_server }}
+edr_api_token = {{ edr_api_token }}
+buffers_size = {{ buffers_size }}
+full_stack_sync_delay = {{ full_stack_sync_delay }}
+empty_stack_sync_delay = {{ empty_stack_sync_delay}}
+on_error_sleep_delay = {{ on_error_sleep_delay }}
+tenders_api_version = {{ tenders_api_version }}
+edrapi_api_server = {{ edrapi_api_server }}
+delay = {{ delay }}
+increment_step = {{ increment_step }}
+decrement_step = {{ decrement_step }}
+proxy_server = {{ proxy_server }}
+proxy_token = {{ proxy_token }}
+proxy_port = {{ proxy_port }}
+doc_service_server = {{ doc_service_server }}
+doc_service_port = {{ doc_service_port }}
+doc_service_user = {{ doc_service_user }}
+doc_service_password = {{ doc_service_password }}

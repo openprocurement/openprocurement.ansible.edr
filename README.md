@@ -19,20 +19,28 @@ Also IP of your server must be in whitelist for EDR API.
 
 Set token `edr_api_token` in group_vars/server
 
-### Build
+### Build Proxy
 
 For build run, and after 5-10 minutes yo will have built project on ypu hosts 
 
 ```sh
-$ ansible-playbook -i hosts dev_playbook.yml
+$ ansible-playbook -i hosts proxy_playbook.yml
 ```
 
 If your user need password then run
 
 ```sh
-$ ansible-playbook -i hosts dev_playbook.yml --ask-sudo-pass
+$ ansible-playbook -i hosts proxy_playbook.yml --ask-sudo-pass
 ```
 
+
+### Build bot
+
+For build run, and after 5-10 minutes yo will have built project on ypu hosts 
+
+```sh
+$ ansible-playbook -i hosts bot_playbook.yml
+```
 
 ### Server dependency
 

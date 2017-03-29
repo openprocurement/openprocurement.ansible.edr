@@ -1,0 +1,9 @@
+---
+
+- hosts: bot
+  remote_user: "{{ deploy_user }}"
+  roles:
+    -
+      role: users
+    -
+      role: bot
