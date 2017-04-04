@@ -30,7 +30,7 @@
   become_user: "{{ build_user }}"
 
 - name: Clone repository
-  git: repo={{ code_repository }} dest={{ path_to_code }} version={{ code_version }} update=no
+  git: repo={{ code_repository }} dest={{ path_to_code }} version={{ code_version }} update=yes
   tags: clone
   become: true
   become_user: "{{ build_user }}"
