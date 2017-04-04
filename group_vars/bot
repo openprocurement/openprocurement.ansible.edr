@@ -34,7 +34,8 @@ delay: 15
 increment_step: 1
 decrement_step: 1
 proxy_server: test
-proxy_token: test
+proxy_user: test
+proxy_password: test
 proxy_port: test
 proxy_version: test
 doc_service_server: test
