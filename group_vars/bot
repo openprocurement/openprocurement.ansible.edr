@@ -24,8 +24,6 @@ path_to_config: /home/{{ deploy_user }}
 tenders_api_server: test
 public_tenders_api_server: test
 api_token: test
-edr_api_server: test
-edr_api_token: test
 buffers_size: test
 full_stack_sync_delay: test
 empty_stack_sync_delay: 20
