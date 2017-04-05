@@ -24,6 +24,7 @@
     - redhat-rpm-config
     - yum
     - nginx
+    - logrotate
   tags:
     - necessary_packages
   become: true

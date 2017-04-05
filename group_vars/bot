@@ -42,3 +42,7 @@ doc_service_server: test
 doc_service_port: test
 doc_service_user: user
 doc_service_password: password
+logs_bucket: test
+logs_dir: test
+logs_aws_access_key: test
+logs_aws_secret_key: test
