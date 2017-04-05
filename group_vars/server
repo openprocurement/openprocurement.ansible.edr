@@ -28,4 +28,9 @@ path_to_config: /home/{{ deploy_user }}
 # Path to ini
 path_to_auth: "{{ path_to_config }}"
 
+logs_bucket: test
+logs_dir: test
+logs_aws_access_key: test
+logs_aws_secret_key: test
+
 
