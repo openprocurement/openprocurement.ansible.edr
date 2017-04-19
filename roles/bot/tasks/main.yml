@@ -31,7 +31,7 @@
   become_user: "{{ build_user }}"
 
 - name: Clone repository
-  git: repo={{ code_repository }} dest={{ path_to_code }} version={{ code_version }} update=yes
+  git: repo={{ code_repository }} dest={{ path_to_code }} version={{ code_version }} update=yes force=yes
   tags: clone
   become: true
   become_user: "{{ build_user }}"
@@ -56,8 +56,8 @@
   become: true
   become_user: "{{ build_user }}"
 
-- name: Try reload webapp
-  shell: "bin/circusctl reload webapp chdir={{ path_to_code }}"
+- name: Try reload bot_identification_bridge
+  shell: "bin/circusctl reload bot_identification_bridge chdir={{ path_to_code }}"
   tags: reload_circus
   ignore_errors: yes
   register: reload_circus
