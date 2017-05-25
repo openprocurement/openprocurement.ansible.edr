@@ -5,7 +5,7 @@ extends = production.cfg
 web_port = {{ proxy_port }}
 web_host = {{ proxy_host }}
 {% if sandbox_mode is defined %}
-  sandbox_mode = {{ sandbox_mode }}
+sandbox_mode = {{ sandbox_mode }}
 {% endif %}
 
 [openprocurement.integrations.edr.ini]
