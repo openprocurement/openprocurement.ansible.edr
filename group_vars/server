@@ -33,4 +33,7 @@ logs_dir: test
 logs_aws_access_key: test
 logs_aws_secret_key: test
 
+# sandbox mode
+sandbox_mode: true
+
 
