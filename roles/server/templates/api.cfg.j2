@@ -4,6 +4,9 @@ extends = production.cfg
 [circus.ini]
 web_port = {{ proxy_port }}
 web_host = {{ proxy_host }}
+{% if sandbox_mode is defined %}
+sandbox_mode = {{ sandbox_mode }}
+{% endif %}
 
 [openprocurement.integrations.edr.ini]
 edr_api_host = {{ edr_api_host }}
