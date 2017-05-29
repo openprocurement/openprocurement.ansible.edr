@@ -18,12 +18,19 @@
         listen: "80 default_server"
         server_name: "_"
         extra_parameters: |
+          proxy_redirect     off;
+          proxy_buffering    off;
+          proxy_set_header   X-Real-IP $remote_addr;
+          proxy_set_header   X-Scheme $scheme;
+          proxy_set_header   X-Forwarded-For $proxy_add_x_forwarded_for;
+          proxy_set_header   Host $http_host;
+
+          location /api/0/ {
+              proxy_pass http://127.0.0.1:{{ proxy_port }}/api/1.0/;
+          }
+          location /api/1/ {
+              proxy_pass http://127.0.0.1:{{ proxy_port }}/api/1.0/;
+          }
           location / {
-            proxy_pass         http://{{ proxy_host }}:{{ proxy_port }};
-            proxy_redirect     off;
-            proxy_buffering    off;
-            proxy_set_header   X-Real-IP $remote_addr;
-            proxy_set_header   X-Scheme $scheme;
-            proxy_set_header   X-Forwarded-For $proxy_add_x_forwarded_for;
-            proxy_set_header   Host $http_host;
+              proxy_pass http://127.0.0.1:{{ proxy_port }}/;
           }
