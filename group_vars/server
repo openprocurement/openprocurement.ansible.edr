@@ -16,10 +16,10 @@ path_to_code: "{{ path_to_work }}/edr_integrations"
 edr_api_token: token
 edr_api_port: 443
 edr_api_host: https://zqedr-api.nais.gov.ua
-edr_timeout_min = 1
-edr_timeout_max = 60
-edr_timeout_step = 2
-edr_timeout_mode = mult
+edr_timeout_min: 1
+edr_timeout_max: 60
+edr_timeout_step: 2
+edr_timeout_mode: mult
 
 # Proxy setting
 proxy_host: 0.0.0.0
