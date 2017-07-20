@@ -5,6 +5,9 @@ extends =
 [circus.ini]
 contracting_data_bridge =
 competitive_dialogue_data_bridge =
+{% if sandbox_mode is defined %}
+sandbox_mode = {{ sandbox_mode }}
+{% endif %}
 
 
 [bot_identification_bridge.yaml]
