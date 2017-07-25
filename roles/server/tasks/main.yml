@@ -55,11 +55,6 @@
   become: true
   become_user: "{{ build_user }}"
 
-- name: Create dir for redis
-  file: path={{ path_to_code }}/var/redis state=directory mode=0755 recurse=yes
-  become: true
-  become_user: "{{ build_user }}"
-
 - name: Build repo
   shell: "bin/buildout -c api.cfg chdir={{ path_to_code }}"
   become: true
