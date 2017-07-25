@@ -39,4 +39,10 @@ logs_aws_secret_key: test
 # sandbox mode
 sandbox_mode: true
 
+# cache settings
+cache_db_name: 0
+cache_host: 127.0.0.1
+cache_port: 6379
+time_to_live: 1800
+time_to_live_negative: 120
 
